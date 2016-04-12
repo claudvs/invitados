@@ -1,6 +1,6 @@
 /*
-SQLyog Community v12.09 (64 bit)
-MySQL - 5.1.72-community : Database - db_invitados
+SQLyog Community v12.06 (64 bit)
+MySQL - 5.1.47-community : Database - db_invitados
 *********************************************************************
 */
 
@@ -36,7 +36,11 @@ CREATE TABLE `eventos` (
 
 /*Data for the table `eventos` */
 
+LOCK TABLES `eventos` WRITE;
+
 insert  into `eventos`(`id`,`evento_nombre`,`evento_lugar`,`evento_fecha`,`evento_hora`,`evento_cupo`,`evento_observaciones`,`created_at`,`updated_at`,`deleted_at`) values (1,'Queen: \"Una noche en Bohemia\"','Cinemark Bolivia Santa Cruz de la Sierra, Bolivia','04/16/2016 10:38 PM','23:15','300','Ahora tendrás la oportunidad de ver el monumental concierto de 1975 en Londres y el documental nunca antes visto que profundiza la historia de Queen. Presenta entrevistas recién descubiertas con los cuatro miembros de la banda, grabaciones de actuaciones en vivo y mucho más. \r\nQueen: \"Una Noche en Bohemia\", especialmente restaurado y re-mezclado para la pantalla grande.','2016-04-11 20:38:51','2016-04-11 20:38:51',NULL);
+
+UNLOCK TABLES;
 
 /*Table structure for table `migrations` */
 
@@ -49,7 +53,11 @@ CREATE TABLE `migrations` (
 
 /*Data for the table `migrations` */
 
+LOCK TABLES `migrations` WRITE;
+
 insert  into `migrations`(`migration`,`batch`) values ('2014_10_12_000000_create_users_table',1),('2014_10_12_100000_create_password_resets_table',1),('2016_04_10_190215_create_eventos_table',1),('2016_04_10_192216_create_relacion_evento_relacionadors_table',1),('2016_04_10_192239_create_relacion_evento_invitados_table',1),('2016_04_10_192315_create_relacion_relacionador_invitados_table',1),('2016_04_11_084026_add_deleted_to_eventos_table',1),('2016_04_11_185053_add_deleted_to_users_table',2);
+
+UNLOCK TABLES;
 
 /*Table structure for table `password_resets` */
 
@@ -64,6 +72,10 @@ CREATE TABLE `password_resets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `password_resets` */
+
+LOCK TABLES `password_resets` WRITE;
+
+UNLOCK TABLES;
 
 /*Table structure for table `relacion_evento_invitados` */
 
@@ -84,6 +96,10 @@ CREATE TABLE `relacion_evento_invitados` (
 
 /*Data for the table `relacion_evento_invitados` */
 
+LOCK TABLES `relacion_evento_invitados` WRITE;
+
+UNLOCK TABLES;
+
 /*Table structure for table `relacion_evento_relacionadors` */
 
 DROP TABLE IF EXISTS `relacion_evento_relacionadors`;
@@ -103,6 +119,10 @@ CREATE TABLE `relacion_evento_relacionadors` (
 
 /*Data for the table `relacion_evento_relacionadors` */
 
+LOCK TABLES `relacion_evento_relacionadors` WRITE;
+
+UNLOCK TABLES;
+
 /*Table structure for table `relacion_relacionador_invitados` */
 
 DROP TABLE IF EXISTS `relacion_relacionador_invitados`;
@@ -118,9 +138,15 @@ CREATE TABLE `relacion_relacionador_invitados` (
   KEY `relacion_relacionador_invitados_invitado_id_foreign` (`invitado_id`),
   CONSTRAINT `relacion_relacionador_invitados_invitado_id_foreign` FOREIGN KEY (`invitado_id`) REFERENCES `users` (`id`),
   CONSTRAINT `relacion_relacionador_invitados_relacionador_id_foreign` FOREIGN KEY (`relacionador_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `relacion_relacionador_invitados` */
+
+LOCK TABLES `relacion_relacionador_invitados` WRITE;
+
+insert  into `relacion_relacionador_invitados`(`id`,`relacionador_id`,`invitado_id`,`created_at`,`updated_at`) values (6,7,11,'2016-04-12 06:09:14','2016-04-12 06:09:14');
+
+UNLOCK TABLES;
 
 /*Table structure for table `users` */
 
@@ -144,11 +170,15 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`apellidos`,`ci`,`nroCelular`,`fechanac`,`sexo`,`email`,`usuario`,`password`,`tipo`,`estado`,`remember_token`,`created_at`,`updated_at`,`deleted_at`) values (6,'Claudios','Vargas Saavedra','3627592','75666223','0000-00-00','Masculino','klaudiocvs@gmail.com','iClaudioVargas','$2y$10$WMdzdx//Qo9kUQZJAE1A2ep7OWns1DAHS1vz7jmQ.58wFvTiKbptO','Relacionador','1',NULL,'2016-04-11 18:03:15','2016-04-11 19:02:32','2016-04-11 19:02:32'),(7,'Daniela','Ondarza','3627592','75666223','0000-00-00','','daniela@fake.com','iDaniela','$2y$10$kEEfTZx/YB5dpdnu6Mmiu.yUi8XmLEQFk1RjPUa1XE7SkQ/ch4rv2','Relacionador','1','uamcypRdKsHg3DXiVVnPFNIWoLUvx3u049rfsgFnHxsfEsnaqEVeryNK3buN','2016-04-11 18:46:19','2016-04-11 21:50:01',NULL),(8,'Gledis','Cortez','9876542','12354648','0000-00-00','Feminino','gldedis@fake.com','iGledis','$2y$10$kEEfTZx/YB5dpdnu6Mmiu.yUi8XmLEQFk1RjPUa1XE7SkQ/ch4rv2','Administrador','1','UBplccq5hLJMcjLm9wXOe3SZEjwZa9FoBs1TC2F7nA3yUEZqfdCW263QESIF','2016-04-11 18:46:19','2016-04-11 21:50:34',NULL);
+LOCK TABLES `users` WRITE;
+
+insert  into `users`(`id`,`name`,`apellidos`,`ci`,`nroCelular`,`fechanac`,`sexo`,`email`,`usuario`,`password`,`tipo`,`estado`,`remember_token`,`created_at`,`updated_at`,`deleted_at`) values (6,'Claudios','Vargas Saavedra','3627592','75666223','0000-00-00','Masculino','klaudiocvs@gmail.com','iClaudioVargas','$2y$10$WMdzdx//Qo9kUQZJAE1A2ep7OWns1DAHS1vz7jmQ.58wFvTiKbptO','Relacionador','1',NULL,'2016-04-11 18:03:15','2016-04-11 19:02:32','2016-04-11 19:02:32'),(7,'Daniela','Ondarza','3627592','75666223','0000-00-00','','daniela@fake.com','iDaniela','$2y$10$kEEfTZx/YB5dpdnu6Mmiu.yUi8XmLEQFk1RjPUa1XE7SkQ/ch4rv2','Relacionador','1','0KxH8xYTdTiC381Lh8N3VsLgggMpPC7grGercxmgO84tbBT9uQD4J6j0FMnh','2016-04-11 18:46:19','2016-04-12 05:14:22',NULL),(8,'Gledis','Cortez','9876542','12354648','0000-00-00','Feminino','gldedis@fake.com','iGledis','$2y$10$kEEfTZx/YB5dpdnu6Mmiu.yUi8XmLEQFk1RjPUa1XE7SkQ/ch4rv2','Administrador','1','Mg0Cqv9iUATXn5KD9FvVEXLeOc0maik3mTPjixRRbuqpvWf84JNQIBpYvUhN','2016-04-11 18:46:19','2016-04-12 05:15:24',NULL),(11,'Claudio','Vargas Saavedra','','75666223','0000-00-00','Masculino','klaudiocvs@example.com','','','Invitado','1',NULL,'2016-04-12 06:09:14','2016-04-12 06:09:14',NULL);
+
+UNLOCK TABLES;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
