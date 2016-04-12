@@ -10,6 +10,7 @@
     {!!Html::style('css/bootstrap.min.css')!!}
     {!!Html::style('css/bootstrap-datetimepicker.css')!!}
     {!!Html::style('font-awesome/css/font-awesome.css')!!}
+    {!!Html::style('css/jquery.steps.css')!!}
     {!!Html::style('css/plugins/custom.css')!!}
     {!!Html::style('css/plugins/chosen.css')!!}
     {!!Html::style('css/plugins/bootstrap-colorpicker.min.css')!!}
@@ -57,7 +58,7 @@
                           <a href="{!!URL::to('/dashboard')!!}">INv</a>
                       </div>
                   </li>
-
+                  @if(Auth::user()->tipo == 'Administrador')
                   <li>
                       <a href="index.html"><i class="fa fa-star"></i> <span class="nav-label">Eventos</span> <span class="fa arrow"></span></a>
                       <ul class="nav nav-second-level collapse">
@@ -65,6 +66,7 @@
                           <li><a href="{!!URL::to('/evento')!!}">Eventos</a></li>
                       </ul>
                   </li>
+
                   <li>
                       <a href="#"><i class="fa fa-group"></i> <span class="nav-label">Relacionadores</span> <span class="fa arrow"></span></a>
                       <ul class="nav nav-second-level collapse">
@@ -72,6 +74,7 @@
                           <li><a href="{!!URL::to('/relacionador')!!}">Relacionadores</a></li>
                       </ul>
                   </li>
+
                   <li>
                       <a href="index.html"><i class="fa fa-send"></i> <span class="nav-label">Email</span> <span class="fa arrow"></span></a>
                       <ul class="nav nav-second-level collapse">
@@ -79,6 +82,22 @@
                           <li><a href="dashboard_2.html">Ver Enviados</a></li>
                       </ul>
                   </li>
+                  @endif
+                  @if(Auth::user()->tipo == 'Relacionador')
+                  <li>
+                      <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Invitados</span> <span class="fa arrow"></span></a>
+                      <ul class="nav nav-second-level collapse">
+                          <li><a href="#">Registrar Invitado</a></li>
+                          <li><a href="#">Mis Invitados</a></li>
+                      </ul>
+                  </li>
+                  <li>
+                      <a href="layouts.html">
+                        <i class="fa fa-star"></i>
+                        <span class="nav-label">Eventos</span>
+                      </a>
+                  </li>
+                  @endif
               </ul>
 
           </div>
@@ -98,6 +117,10 @@
     {!!Html::script('js/chosen.jquery.js')!!}
     {!!Html::script('js/jquery.knob.js')!!}
     {!!Html::script('js/jasny-bootstrap.min.js')!!}
+    {!!Html::script('js/jquery.steps.min.js')!!}
+    {!!Html::script('js/jquery.validate.min.js')!!}
+
+
 
     {!!Html::script('js/moment.js')!!}
     {!!Html::script('js/bootstrap-datetimepicker.js')!!}

@@ -27,3 +27,4 @@ Route::get('dashboard', ['as' => 'admin', 'uses' => 'AdministradorController@adm
 
 Route::resource('evento','EventoController');
 Route::resource('relacionador','RelacionadorController');
+Route::resource('invitado','InvitadosController');
