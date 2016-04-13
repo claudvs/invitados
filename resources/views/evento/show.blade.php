@@ -143,7 +143,7 @@
                                           <span class="label label-primary pull-right">{!!$numeroinvitadoss->cantidad!!} Invitados</span>
                                           @endif
                                         @endforeach
-                                          <h5>Relacionador: {!!$relacionador->name!!} {!!$relacionador->apellidos!!}</h5>
+                                          <h5>Relacionador: <br>{!!$relacionador->name!!}</h5>
                                       </div>
                                       <div class="ibox-content">
                                         {!!Form::open(['route'=>'enviar_invitacion.store','method'=>'POST'])!!}
@@ -156,11 +156,12 @@
                                             @if($relacionador->id == $invitadosrelacionadores->idRelacionador)
                                               {!!Form::hidden('relacionador_nombre', $invitadosrelacionadores->relacionador)!!}
                                               {!!Form::hidden('relacionador_apellido', $invitadosrelacionadores->relacionadorape)!!}
+                                              {!!Form::hidden('relacionador_id', $invitadosrelacionadores->idRelacionador)!!}
 
                                             {!!Form::hidden('invitado_nombre'.$invitadosrelacionadores->id, $invitadosrelacionadores->invitado)!!}
                                             {!!Form::hidden('invitado_apellido'.$invitadosrelacionadores->id, $invitadosrelacionadores->apellidos)!!}
                                             {!!Form::hidden('invitado_email'.$invitadosrelacionadores->id, $invitadosrelacionadores->email)!!}
-
+                                            {!!Form::hidden('invitado_evento'.$invitadosrelacionadores->id, $invitadosrelacionadores->inveve)!!}
                                           <li>
                                             {!!Form::checkbox('key_'.$invitadosrelacionadores->id, $invitadosrelacionadores->id,['class'=>'check-link'])!!}
                                             <span class="m-l-xs">{!!$invitadosrelacionadores->invitado!!} {!!$invitadosrelacionadores->apellidos!!}</span>
@@ -172,6 +173,17 @@
                                             {!!Form::submit('Enviar invitacion',['class'=>'btn btn btn-primary']) !!}
                                         </div>
                                         {!!Form::close()!!}
+                                      </div>
+                                      <div class="inbox-content">
+                                        <ul class="todo-list m-t small-list">
+                                          @foreach($enviados as $enviado)
+                                            @if($relacionador->id == $enviado->idRelacionador)
+                                            <li>
+                                                <p> <i class="fa fa-circle text-navy"></i>{!!$enviado->invitado!!}{!!$enviado->apellidos!!} Enviada </p>
+                                            </li>
+                                            @endif
+                                          @endforeach
+                                      </ul>
                                       </div>
                                   </div>
                                 </div>

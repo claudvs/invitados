@@ -44,7 +44,7 @@ class Invitados_EventoController extends Controller
         $relacionador = Auth::user()->id;
         foreach($request->all() as $key=>$requests) {
             if($key != '_token' && $key != 'evento')
-            { 
+            {
               $aux = invitados_eventos::create(array(
                 'evento_id' => $request->input('evento'),
                 'relacionador_id' => $relacionador,

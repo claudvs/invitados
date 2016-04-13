@@ -103,16 +103,27 @@ class EventoController extends Controller
              ');
 
       $invitadosrelacionador = DB::select('
-              SELECT usuario1.name AS invitado, usuario1.apellidos, usuario1.email, usuario1.id, usuario2.name AS relacionador, usuario2.apellidos AS relacionadorape, usuario2.id  AS idRelacionador
+              SELECT invitados_eventos.id AS inveve,usuario1.name AS invitado, usuario1.apellidos, usuario1.email, usuario1.id, usuario2.name AS relacionador, usuario2.apellidos AS relacionadorape, usuario2.id  AS idRelacionador
               FROM users usuario1, users usuario2, invitados_eventos
               WHERE
                   invitados_eventos.evento_id =  '.$id. '  AND
+                  invitados_eventos.estado = '.'"0"' .' AND
+                  invitados_eventos.invitado_id = usuario1.id  AND
+                  invitados_eventos.relacionador_id = usuario2.id
+              GROUP BY usuario1.name
+      ');
+      $enviados = DB::select('
+              SELECT invitados_eventos.id AS inveve,usuario1.name AS invitado, usuario1.apellidos, usuario1.email, usuario1.id, usuario2.name AS relacionador, usuario2.apellidos AS relacionadorape, usuario2.id  AS idRelacionador
+              FROM users usuario1, users usuario2, invitados_eventos
+              WHERE
+                  invitados_eventos.evento_id =  '.$id. '  AND
+                  invitados_eventos.estado = '.'"1"' .' AND
                   invitados_eventos.invitado_id = usuario1.id  AND
                   invitados_eventos.relacionador_id = usuario2.id
               GROUP BY usuario1.name
       ');
 
-        return view('evento.show',['evento'=>$evento],compact('misinvitados','invitados','relacionadores','numeroinvitados','invitadosrelacionador'));
+        return view('evento.show',['evento'=>$evento],compact('misinvitados','invitados','relacionadores','numeroinvitados','invitadosrelacionador','enviados'));
     }
 
     /**

@@ -1,2 +1,3 @@
 
-Hola {!!$user->name!!}
+Hola
+<img src="{!!$message->embed($qrFile)!!}">

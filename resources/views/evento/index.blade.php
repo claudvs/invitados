@@ -50,7 +50,7 @@
                         <h5>Eventos</h5>
                     </div>
                     <div class="ibox-content table-responsive">
-                        <table class="table">
+                        <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>#</th>
@@ -77,6 +77,9 @@
                                 <td>
                                   {!!link_to_route('evento.edit', $title = 'Editar', $parameters = $evento->id, $attributes = ['class'=>'btn btn-info'])!!}
                                 </td>
+                                <th>
+                                  {!!link_to_route('evento.show', $title = 'Ver', $parameters = $evento->id, $attributes = ['class'=>'btn btn-info'])!!}
+                                </th>
                                 @endif
                                 @if(Auth::user()->tipo == 'Relacionador')
                                 <th>

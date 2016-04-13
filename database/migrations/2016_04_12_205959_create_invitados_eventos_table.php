@@ -23,7 +23,9 @@ class CreateInvitadosEventosTable extends Migration
 
             $table->integer('relacionador_id')->unsigned();
             $table->foreign('relacionador_id')->references('id')->on('users');
-            
+
+            $table->enum('estado',['0','1','2']);
+
             $table->timestamps();
         });
     }

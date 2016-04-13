@@ -2,9 +2,20 @@
 <html>
 
 <head>
-
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Chrome for Android theme color -->
+    <meta name="theme-color" content="#2E3AA1">
+
+    <!-- Web Application Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Tile color for Win8 -->
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="PSK">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>INVITADOS | dashboard</title>
     {!!Html::style('css/bootstrap.min.css')!!}
@@ -76,10 +87,9 @@
                   </li>
 
                   <li>
-                      <a href="index.html"><i class="fa fa-send"></i> <span class="nav-label">Email</span> <span class="fa arrow"></span></a>
+                      <a href="#"><i class="fa fa-send"></i> <span class="nav-label">Invitaciones</span> <span class="fa arrow"></span></a>
                       <ul class="nav nav-second-level collapse">
-                          <li><a href="index.html">Enviar Email</a></li>
-                          <li><a href="dashboard_2.html">Ver Enviados</a></li>
+                          <li><a href="{!!URL::to('/evento')!!}">Enviar Invitaciones</a></li>
                       </ul>
                   </li>
                   @endif

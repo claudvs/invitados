@@ -1,6 +1,6 @@
 /*
-SQLyog Community v12.06 (64 bit)
-MySQL - 5.1.47-community : Database - db_invitados
+SQLyog Community v12.09 (64 bit)
+MySQL - 5.1.72-community : Database - db_invitados
 *********************************************************************
 */
 
@@ -32,15 +32,11 @@ CREATE TABLE `eventos` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `eventos` */
 
-LOCK TABLES `eventos` WRITE;
-
-insert  into `eventos`(`id`,`evento_nombre`,`evento_lugar`,`evento_fecha`,`evento_hora`,`evento_cupo`,`evento_observaciones`,`created_at`,`updated_at`,`deleted_at`) values (1,'Queen: \"Una noche en Bohemia\"','Cinemark Bolivia Santa Cruz de la Sierra, Bolivia','04/16/2016 10:38 PM','23:15','300','Ahora tendrás la oportunidad de ver el monumental concierto de 1975 en Londres y el documental nunca antes visto que profundiza la historia de Queen. Presenta entrevistas recién descubiertas con los cuatro miembros de la banda, grabaciones de actuaciones en vivo y mucho más. \r\nQueen: \"Una Noche en Bohemia\", especialmente restaurado y re-mezclado para la pantalla grande.','2016-04-11 20:38:51','2016-04-11 20:38:51',NULL),(2,' FÉMINA','Esquina del Cronopio Colon esq. Lemoine, Santa Cruz de la Sierra, Bolivia','04/15/2016 11:01 PM','23:15','200','Una noche para disfrutar de la pintura , escuchar buena música con Caribru ( Carolina Rivero) y la poesía con Nelly Vázquez.\r\nESTOS CUADROS SON PARTE DE MI BÚSQUEDA INTERIOR , TIENEN LA FIGURA FEMENINA COMO PRINCIPAL MOTIVO Y SIGUEN UN ESTILO GRÁFICO Y EXPRESIVO . ISABEL JORDÁN','2016-04-13 03:02:05','2016-04-13 03:02:05',NULL);
-
-UNLOCK TABLES;
+insert  into `eventos`(`id`,`evento_nombre`,`evento_lugar`,`evento_fecha`,`evento_hora`,`evento_cupo`,`evento_observaciones`,`created_at`,`updated_at`,`deleted_at`) values (3,'Queen: \"Una noche en Bohemia\".','Cinemark Bolivia Santa Cruz de la Sierra, Bolivia','04/15/2016 7:03 PM','23:30','300','Ahora tendrás la oportunidad de ver el monumental concierto de 1975 en Londres y el documental nunca antes visto que profundiza la historia de Queen. Presenta entrevistas recién descubiertas con los cuatro miembros de la banda, grabaciones de actuaciones en vivo y mucho más. \r\nQueen: \"Una Noche en Bohemia\", especialmente restaurado y re-mezclado para la pantalla grande.','2016-04-13 17:03:53','2016-04-13 17:03:53',NULL),(4,'FÉMINA','	 Hide Map Esquina del Cronopio Colon esq. Lemoine, Santa Cruz de la Sierra, Bolivia','04/16/2016 9:44 PM','23:30','150','Una noche para disfrutar de la pintura , escuchar buena música con Caribru ( Carolina Rivero) y la poesía con Nelly Vázquez.\r\nESTOS CUADROS SON PARTE DE MI BÚSQUEDA , TIENEN LA FIGURA FEMENINA COMO PRINCIPAL MOTIVO Y SIGUEN UN ESTILO GRÁFICO Y EXPRESIVO . ISABEL JORDÁN','2016-04-13 19:44:39','2016-04-13 19:44:39',NULL);
 
 /*Table structure for table `invitados_eventos` */
 
@@ -51,6 +47,7 @@ CREATE TABLE `invitados_eventos` (
   `evento_id` int(10) unsigned NOT NULL,
   `invitado_id` int(10) unsigned NOT NULL,
   `relacionador_id` int(10) unsigned NOT NULL,
+  `estado` enum('0','1','2') COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -60,15 +57,11 @@ CREATE TABLE `invitados_eventos` (
   CONSTRAINT `invitados_eventos_relacionador_id_foreign` FOREIGN KEY (`relacionador_id`) REFERENCES `users` (`id`),
   CONSTRAINT `invitados_eventos_evento_id_foreign` FOREIGN KEY (`evento_id`) REFERENCES `eventos` (`id`),
   CONSTRAINT `invitados_eventos_invitado_id_foreign` FOREIGN KEY (`invitado_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `invitados_eventos` */
 
-LOCK TABLES `invitados_eventos` WRITE;
-
-insert  into `invitados_eventos`(`id`,`evento_id`,`invitado_id`,`relacionador_id`,`created_at`,`updated_at`) values (64,1,11,7,'2016-04-13 07:45:47','2016-04-13 07:45:47'),(65,1,15,7,'2016-04-13 07:46:09','2016-04-13 07:46:09');
-
-UNLOCK TABLES;
+insert  into `invitados_eventos`(`id`,`evento_id`,`invitado_id`,`relacionador_id`,`estado`,`created_at`,`updated_at`) values (2,3,4,3,'0','2016-04-13 19:13:58','2016-04-13 20:07:01'),(3,3,5,3,'0','2016-04-13 19:17:50','2016-04-13 20:11:17'),(4,4,7,6,'0','2016-04-13 19:48:44','2016-04-13 19:48:44'),(5,3,7,6,'0','2016-04-13 19:48:54','2016-04-13 20:11:42');
 
 /*Table structure for table `migrations` */
 
@@ -81,11 +74,7 @@ CREATE TABLE `migrations` (
 
 /*Data for the table `migrations` */
 
-LOCK TABLES `migrations` WRITE;
-
-insert  into `migrations`(`migration`,`batch`) values ('2014_10_12_000000_create_users_table',1),('2014_10_12_100000_create_password_resets_table',1),('2016_04_10_190215_create_eventos_table',1),('2016_04_10_192216_create_relacion_evento_relacionadors_table',1),('2016_04_10_192239_create_relacion_evento_invitados_table',1),('2016_04_10_192315_create_relacion_relacionador_invitados_table',1),('2016_04_11_084026_add_deleted_to_eventos_table',1),('2016_04_11_185053_add_deleted_to_users_table',2),('2016_04_12_205959_create_invitados_eventos_table',3);
-
-UNLOCK TABLES;
+insert  into `migrations`(`migration`,`batch`) values ('2014_10_12_000000_create_users_table',1),('2014_10_12_100000_create_password_resets_table',1),('2016_04_10_190215_create_eventos_table',1),('2016_04_10_192216_create_relacion_evento_relacionadors_table',1),('2016_04_10_192239_create_relacion_evento_invitados_table',1),('2016_04_10_192315_create_relacion_relacionador_invitados_table',1),('2016_04_11_084026_add_deleted_to_eventos_table',1),('2016_04_11_185053_add_deleted_to_users_table',1),('2016_04_12_205959_create_invitados_eventos_table',1);
 
 /*Table structure for table `password_resets` */
 
@@ -100,10 +89,6 @@ CREATE TABLE `password_resets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `password_resets` */
-
-LOCK TABLES `password_resets` WRITE;
-
-UNLOCK TABLES;
 
 /*Table structure for table `relacion_evento_invitados` */
 
@@ -124,10 +109,6 @@ CREATE TABLE `relacion_evento_invitados` (
 
 /*Data for the table `relacion_evento_invitados` */
 
-LOCK TABLES `relacion_evento_invitados` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `relacion_evento_relacionadors` */
 
 DROP TABLE IF EXISTS `relacion_evento_relacionadors`;
@@ -147,10 +128,6 @@ CREATE TABLE `relacion_evento_relacionadors` (
 
 /*Data for the table `relacion_evento_relacionadors` */
 
-LOCK TABLES `relacion_evento_relacionadors` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `relacion_relacionador_invitados` */
 
 DROP TABLE IF EXISTS `relacion_relacionador_invitados`;
@@ -166,15 +143,11 @@ CREATE TABLE `relacion_relacionador_invitados` (
   KEY `relacion_relacionador_invitados_invitado_id_foreign` (`invitado_id`),
   CONSTRAINT `relacion_relacionador_invitados_invitado_id_foreign` FOREIGN KEY (`invitado_id`) REFERENCES `users` (`id`),
   CONSTRAINT `relacion_relacionador_invitados_relacionador_id_foreign` FOREIGN KEY (`relacionador_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `relacion_relacionador_invitados` */
 
-LOCK TABLES `relacion_relacionador_invitados` WRITE;
-
-insert  into `relacion_relacionador_invitados`(`id`,`relacionador_id`,`invitado_id`,`created_at`,`updated_at`) values (6,7,11,'2016-04-12 06:09:14','2016-04-12 06:09:14'),(7,7,12,'2016-04-12 18:18:31','2016-04-12 18:18:31'),(8,13,14,'2016-04-12 18:58:42','2016-04-12 18:58:42'),(9,7,15,'2016-04-13 02:17:27','2016-04-13 02:17:27');
-
-UNLOCK TABLES;
+insert  into `relacion_relacionador_invitados`(`id`,`relacionador_id`,`invitado_id`,`created_at`,`updated_at`) values (1,3,4,'2016-04-13 17:11:52','2016-04-13 17:11:52'),(2,3,5,'2016-04-13 19:17:27','2016-04-13 19:17:27'),(3,6,7,'2016-04-13 19:48:32','2016-04-13 19:48:32');
 
 /*Table structure for table `users` */
 
@@ -198,15 +171,11 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `users` */
 
-LOCK TABLES `users` WRITE;
-
-insert  into `users`(`id`,`name`,`apellidos`,`ci`,`nroCelular`,`fechanac`,`sexo`,`email`,`usuario`,`password`,`tipo`,`estado`,`remember_token`,`created_at`,`updated_at`,`deleted_at`) values (6,'Claudios','Vargas Saavedra','3627592','75666223','0000-00-00','Masculino','claudio@xamp.com','iClaudioVargas','$2y$10$WMdzdx//Qo9kUQZJAE1A2ep7OWns1DAHS1vz7jmQ.58wFvTiKbptO','Relacionador','1',NULL,'2016-04-11 18:03:15','2016-04-11 19:02:32','2016-04-11 19:02:32'),(7,'Daniela','Ondarza','3627592','75666223','0000-00-00','','klaudiocvs@gmasil.com','iDaniela','$2y$10$kEEfTZx/YB5dpdnu6Mmiu.yUi8XmLEQFk1RjPUa1XE7SkQ/ch4rv2','Relacionador','1','5sD8v9DszGCt62XgoCrlljrjgpCNr7UE7yBihjKGmgM14XzNMufJuR0ZvuZU','2016-04-11 18:46:19','2016-04-13 07:02:36',NULL),(8,'Gledis','Cortez','9876542','12354648','0000-00-00','Feminino','gldedis@fake.com','iGledis','$2y$10$kEEfTZx/YB5dpdnu6Mmiu.yUi8XmLEQFk1RjPUa1XE7SkQ/ch4rv2','Administrador','1','zciDcxPXaf8rlN1mac8D23Sh6cT8gJFXv6ozeFotqgWb3cy2Kxa5Zy2VfaU0','2016-04-11 18:46:19','2016-04-13 03:02:08',NULL),(11,'Claudio','Vargas Saavedra','','75666223','0000-00-00','Masculino','klaudiocvs@gmail.com','','','Invitado','1',NULL,'2016-04-12 06:09:14','2016-04-12 06:09:14',NULL),(12,'Pedro','Maria','','54524525','0000-00-00','Masculino','pedro@example.com','','','Invitado','1',NULL,'2016-04-12 18:18:31','2016-04-12 18:18:31',NULL),(13,'Percy','Fernandez','987654','7539512','0000-00-00','Masculino','ppercy@example.com','iPercy','$2y$10$avVrJTMwYTIT0lBIffpQQ.fGBu7RpI0SIENm4yITGvrf5IMXfJC/a','Relacionador','1','DSd8yj0yMOAe9QYNbzgTTWQyLNgoETZBjtkOqdRjb7cveAHW2rN5cv2Ieh7a','2016-04-12 18:57:10','2016-04-13 07:44:50',NULL),(14,'Adan','Adan','','78945612','0000-00-00','Masculino','adan@gmail.com','','','Invitado','1',NULL,'2016-04-12 18:58:42','2016-04-12 18:58:42',NULL),(15,'Carmen','Saavedra','','7554687','0000-00-00','Masculino','cvs_3000@hotmail.com','','','Invitado','1',NULL,'2016-04-13 02:17:27','2016-04-13 02:17:27',NULL),(16,'Gabriel','Rene','354521','75666224','0000-00-00','Masculino','gabriel@sdf.com','iGabriel','$2y$10$scjHsrp/bIYQ1mHpOduSlewIElcMLml0OIAIrwRgOMwckVAAE2F.6','Relacionador','1',NULL,'2016-04-13 07:30:06','2016-04-13 07:30:06',NULL);
-
-UNLOCK TABLES;
+insert  into `users`(`id`,`name`,`apellidos`,`ci`,`nroCelular`,`fechanac`,`sexo`,`email`,`usuario`,`password`,`tipo`,`estado`,`remember_token`,`created_at`,`updated_at`,`deleted_at`) values (1,'Alfa','','','','0000-00-00','Masculino','','iAlfa','$2y$10$IacP7Fs7VNIx2VACDnIpD.3ixJfFSZkigauhMjmrZ2FpZgZPWzUEu','Administrador','1',NULL,NULL,NULL,NULL),(3,'Claudio','Vargas Saavedra','3627592','75666223','0000-00-00','Masculino','klaudiocvs@gmaild.com','iClaudio','$2y$10$l7XyHnk/hzwDbF0yg4Tc6.vsLHNAmCGjKfrZZj/HprSJrurHY1MzS','Relacionador','1','ptt7czrtWqKnTOEECgN9WVYLqVDk8ytBNd8OL5BrAR15aiB4eKwq8OnoJFNr','2016-04-13 17:02:59','2016-04-13 19:46:49',NULL),(4,'Carmen','Moreno','','75248545','0000-00-00','','carmen@example.com','','','Invitado','1',NULL,'2016-04-13 17:11:51','2016-04-13 17:11:52',NULL),(5,'Klaudio','Vargas Saavedra','','75666555','0000-00-00','Masculino','klaudiocvs@gmail.com','','','Invitado','1',NULL,'2016-04-13 19:17:26','2016-04-13 19:17:27',NULL),(6,'Adan','Adan','789465231','75945621','0000-00-00','Masculino','adan@example.com','iAdan','$2y$10$ZYjlNDpLSacBJrV6veqgMevyV8OBMdfbxrk0EfBCW.bqDpvMIU5By','Relacionador','1',NULL,'2016-04-13 19:46:06','2016-04-13 19:46:07',NULL),(7,'Gledis','Cortez','','7675805','0000-00-00','','gledis@example.com','','','Invitado','1',NULL,'2016-04-13 19:48:31','2016-04-13 19:48:32',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
