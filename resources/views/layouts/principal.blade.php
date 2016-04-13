@@ -87,12 +87,12 @@
                   <li>
                       <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Invitados</span> <span class="fa arrow"></span></a>
                       <ul class="nav nav-second-level collapse">
-                          <li><a href="#">Registrar Invitado</a></li>
-                          <li><a href="#">Mis Invitados</a></li>
+                          <li><a href="{!!URL::to('/invitado/create')!!}">Registrar Invitado</a></li>
+                          <li><a href="{!!URL::to('/invitado')!!}">Mis Invitados</a></li>
                       </ul>
                   </li>
                   <li>
-                      <a href="layouts.html">
+                      <a href="{!!URL::to('/evento')!!}">
                         <i class="fa fa-star"></i>
                         <span class="nav-label">Eventos</span>
                       </a>

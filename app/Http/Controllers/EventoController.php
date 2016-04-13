@@ -11,6 +11,8 @@ use Auth;
 use Session;
 use Redirect;
 use invitados\Evento;
+use invitados\User;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 class EventoController extends Controller
@@ -18,7 +20,7 @@ class EventoController extends Controller
 
   public function __construct(){
     $this->middleware('auth');
-    $this->middleware('admin');
+    $this->middleware('admin',['only'=>['create','updaye','destroy']]);
 
   }
     /**
@@ -64,7 +66,19 @@ class EventoController extends Controller
      */
     public function show($id)
     {
-        //
+        $realacionarid = Auth::user()->id;
+              /*$users = DB::table('users')
+              ->join('relacion_relacionador_invitados', 'users.id', '=', 'relacion_relacionador_invitados.invitados_id')
+              ->select('users.*')
+              ->get();*/
+        $misinvitados = DB::select('
+                    SELECT users.*
+                    FROM users, relacion_relacionador_invitados
+                    WHERE relacion_relacionador_invitados.relacionador_id ='.$realacionarid. ' AND
+                    relacion_relacionador_invitados.invitado_id = users.id');
+        $evento = Evento::find($id);
+
+        return view('evento.show',['evento'=>$evento],compact('misinvitados'));
     }
 
     /**

@@ -54,27 +54,32 @@
                                 <th>#</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
-                                <th>User</th>
+                                <th>Relacionador</th>
                                 <th>Email</th>
-                                <th>Rol</th>
-                                <th>Nro de celular</th>
                                 <th>Estado</th>
-                                <th>Operaciones</th>
+                                <th>Nro de celular</th>
+                                <th>Opciones</th>
                             </tr>
                             </thead>
-                            @foreach($usuarios as $usuario)
+                            @foreach($misinvitados as $invitado)
                             <tbody>
                             <tr>
-                                <td>{{$usuario->id}}</td>
-                                <td>{{$usuario->name}}</td>
-                                <td>{{$usuario->apellidos}}</td>
-                                <td>{{$usuario->usuario}}</td>
-                                <td>{{$usuario->email}}</td>
-                                <td>{{$usuario->tipo}}</td>
-                                <td>{{$usuario->nroCelular}}</td>
-                                <td>{{$usuario->estado}}</td>
+                                <td>{{$invitado->id}}</td>
+                                <td>{{$invitado->name}}</td>
+                                <td>{{$invitado->apellidos}}</td>
+                                <td>{!!Auth::user()->name!!}</td>
+                                <td>{{$invitado->email}}</td>
+                                @if($invitado->estado == '1')
+                                <td>Activo</td>
+                                @endif
+                                @if($invitado->estado == '0')
+                                <td>Cancelado</td>
+                                @endif
+                                <td>{{$invitado->nroCelular}}</td>
                                 <td>
-                                  {!!link_to_route('relacionador.edit', $title = 'Editar', $parameters = $usuario->id, $attributes = ['class'=>'btn btn-info'])!!}
+                                  {!!link_to_route('invitado.show', $title = 'Ver', $parameters = $invitado->id, $attributes = ['class'=>'btn btn-info'])!!}
+                                  {!!link_to_route('invitado.edit', $title = 'Editar', $parameters = $invitado->id, $attributes = ['class'=>'btn btn-info'])!!}
+
                                 </td>
                             </tr>
                             </tbody>

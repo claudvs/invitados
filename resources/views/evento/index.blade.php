@@ -73,9 +73,16 @@
                                 <td>{{$evento->evento_hora}}</td>
                                 <td>{{$evento->evento_cupo}}</td>
                                 <td>{{$evento->evento_observaciones}}</td>
+                                @if(Auth::user()->tipo == 'Administrador')
                                 <td>
                                   {!!link_to_route('evento.edit', $title = 'Editar', $parameters = $evento->id, $attributes = ['class'=>'btn btn-info'])!!}
                                 </td>
+                                @endif
+                                @if(Auth::user()->tipo == 'Relacionador')
+                                <th>
+                                  {!!link_to_route('evento.show', $title = 'Ver', $parameters = $evento->id, $attributes = ['class'=>'btn btn-info'])!!}
+                                </th>
+                                @endif
                             </tr>
                             </tbody>
                             @endforeach

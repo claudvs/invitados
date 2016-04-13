@@ -5,15 +5,11 @@ namespace invitados\Http\Controllers;
 use Illuminate\Http\Request;
 
 use invitados\Http\Requests;
-use invitados\Http\Requests\InvitadoCreateRequest;
+use Illuminate\Http\Response;
+use invitados\invitados_eventos;
 use Auth;
-use Session;
 use Redirect;
-use invitados\User;
-use DB;
-use invitados\Relacion_relacionador_invitado;
-
-class InvitadosController extends Controller
+class Invitados_EventoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,18 +18,7 @@ class InvitadosController extends Controller
      */
     public function index()
     {
-      $realacionarid = Auth::user()->id;
-            /*$users = DB::table('users')
-            ->join('relacion_relacionador_invitados', 'users.id', '=', 'relacion_relacionador_invitados.invitados_id')
-            ->select('users.*')
-            ->get();*/
-      $misinvitados = DB::select('
-                  SELECT users.*
-                  FROM users, relacion_relacionador_invitados
-                  WHERE relacion_relacionador_invitados.relacionador_id ='.$realacionarid. ' AND
-                  relacion_relacionador_invitados.invitado_id = users.id');
-
-       return view('invitados.index',compact('misinvitados'));
+        //
     }
 
     /**
@@ -43,7 +28,7 @@ class InvitadosController extends Controller
      */
     public function create()
     {
-        return view('invitados.registrar');
+        //
     }
 
     /**
@@ -52,19 +37,22 @@ class InvitadosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(InvitadoCreateRequest $request)
+    public function store(Request $request)
     {
-        $relacionadorID = Auth::user()->id;
-        $invitado = User::create($request->all());
-          $invitado->tipo = 'Invitado';
-          $invitado->estado ='1';
-          $invitado->save();
-          $relacion = Relacion_relacionador_invitado::create(array(
-            'relacionador_id' => $relacionadorID,
-            'invitado_id' => $invitado->id
-          ));
-        Session::flash('message','El Invitado se a registrado correctamente');
-      return  Redirect::to('/invitado');
+        $text = '';
+        $relacionador = Auth::user()->id;
+        foreach($request->all() as $key=>$requests) {
+            if($key != '_token')
+            {
+              $aux = invitados_eventos::create(array(
+                'evento_id' => 1,
+                'relacionador_id' => $relacionador,
+                'invitado_id' => $requests
+              ));
+            }
+        }
+        return  Redirect::to('/dashboard');
+
     }
 
     /**
@@ -75,7 +63,7 @@ class InvitadosController extends Controller
      */
     public function show($id)
     {
-      
+        //
     }
 
     /**
