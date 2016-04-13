@@ -67,18 +67,52 @@ class EventoController extends Controller
     public function show($id)
     {
         $realacionarid = Auth::user()->id;
+        $evento = Evento::find($id);
+        $relacionadores = User::all()->where('tipo','Relacionador');
+
               /*$users = DB::table('users')
               ->join('relacion_relacionador_invitados', 'users.id', '=', 'relacion_relacionador_invitados.invitados_id')
               ->select('users.*')
               ->get();*/
         $misinvitados = DB::select('
-                    SELECT users.*
-                    FROM users, relacion_relacionador_invitados
-                    WHERE relacion_relacionador_invitados.relacionador_id ='.$realacionarid. ' AND
-                    relacion_relacionador_invitados.invitado_id = users.id');
-        $evento = Evento::find($id);
+                      SELECT users.*
+                      FROM users,relacion_relacionador_invitados
+                      WHERE users.tipo ='.'"Invitado"' .' AND
+                      relacion_relacionador_invitados.relacionador_id = '.$realacionarid. ' AND
+                      relacion_relacionador_invitados.invitado_id = users.id AND
+                      NOT users.id IN (SELECT invitados_eventos.invitado_id
+                      FROM invitados_eventos
+                      WHERE invitados_eventos.evento_id = '.$id.'
+                      )
+                    ');
 
-        return view('evento.show',['evento'=>$evento],compact('misinvitados'));
+        $invitados = DB::select('
+                SELECT users.*
+                FROM users, invitados_eventos
+                WHERE   invitados_eventos.relacionador_id ='.$realacionarid. ' AND
+                invitados_eventos.invitado_id = users.id AND
+                invitados_eventos.evento_id='.$id.''
+      );
+      $numeroinvitados = DB::select('
+              SELECT COUNT(invitados_eventos.id) AS cantidad, users.name, users.id
+              FROM users, invitados_eventos
+              WHERE users.tipo = '.'"Relacionador"' .'  AND
+              invitados_eventos.evento_id = '.$id. ' AND
+              invitados_eventos.relacionador_id = users.id
+              GROUP BY users.name
+             ');
+
+      $invitadosrelacionador = DB::select('
+              SELECT usuario1.name AS invitado, usuario1.apellidos, usuario1.email, usuario1.id, usuario2.name AS relacionador, usuario2.apellidos AS relacionadorape, usuario2.id  AS idRelacionador
+              FROM users usuario1, users usuario2, invitados_eventos
+              WHERE
+                  invitados_eventos.evento_id =  '.$id. '  AND
+                  invitados_eventos.invitado_id = usuario1.id  AND
+                  invitados_eventos.relacionador_id = usuario2.id
+              GROUP BY usuario1.name
+      ');
+
+        return view('evento.show',['evento'=>$evento],compact('misinvitados','invitados','relacionadores','numeroinvitados','invitadosrelacionador'));
     }
 
     /**

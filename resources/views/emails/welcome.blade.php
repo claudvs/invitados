@@ -1,0 +1,2 @@
+
+Hola {!!$user->name!!}

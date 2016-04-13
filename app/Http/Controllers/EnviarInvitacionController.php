@@ -3,14 +3,12 @@
 namespace invitados\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use invitados\Http\Requests;
-use Illuminate\Http\Response;
-use invitados\invitados_eventos;
-use Auth;
 use Mail;
-use Redirect;
-class Invitados_EventoController extends Controller
+use Auth;
+use invitados\User;
+use invitados\Http\Requests;
+
+class EnviarInvitacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,27 +38,22 @@ class Invitados_EventoController extends Controller
      */
     public function store(Request $request)
     {
-        $text = '';
-        $relacionador = Auth::user()->id;
-        foreach($request->all() as $key=>$requests) {
-            if($key != '_token' && $key != 'evento')
-            { 
-              $aux = invitados_eventos::create(array(
-                'evento_id' => $request->input('evento'),
-                'relacionador_id' => $relacionador,
-                'invitado_id' => $requests
-              ));
-            }
-        }
-      /*
-        Mail::send('emails.welcome', $request->all(), function ($message) {
-              $message->from(Auth::user()->email, 'Laravel');
+      foreach($request->all() as $key=>$requests) {
+          if($key != '_token' && $key != 'evento' && $key != 'evento_nombre' && $key != 'evento_fecha' && $key != 'evento_hora' && $key != 'relacionador_nombre' && $key != 'relacionador_apellido')
+          {
 
-              $message->to('klaudiocvs@gmail.com')->cc('klaudiocvs@gmail.com');
-          });
-*/
-        return  Redirect::to('evento/'.$request->input('evento'));
+              if(strpos($key, 'key') === false){
+              }else{
+                  $ids = $requests;
+                  $aux = User::find($ids);
+                  Mail::send('emails.welcome', [$request->all(),'user' => $aux], function ($message)  use ($aux) {
+                      $message->from('soporte@ticketeg.com.bo', 'Laravel');
 
+                      $message->to($aux->email)->cc('klaudiocvs@gmail.com');
+                  });
+              }
+          }
+      }
     }
 
     /**

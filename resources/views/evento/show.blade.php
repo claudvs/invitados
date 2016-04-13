@@ -94,14 +94,15 @@
                                 </div>
                             </div>
                             <div class="row m-t-sm">
+                              @if(Auth::user()->tipo == 'Relacionador')
                               <div class="col-lg-6">
                                 <div class="ibox float-e-margins">
                                   <div class="ibox-content">
                                     <h2>Por invitar</h2>
                                     <small>Para tener mas invitados tienes que registrarlos</small>
                                     {!!Form::open(['route'=>'invitado_eventos.store','method'=>'POST'])!!}
+                                      {!!Form::hidden('evento', $evento->id)!!}
                                       <ul class="todo-list m-t small-list">
-
                                       @foreach($misinvitados as $invitado)
                                       <li>
                                         {!!Form::checkbox('invitado'.$invitado->id, $invitado->id,['class'=>'check-link'])!!}
@@ -121,20 +122,61 @@
                                   <div class="ibox-content">
                                     <h2>Ya invitados</h2>
                                     <small>Para tener mas invitados tienes que registrarlos</small>
-                                    <ul class="todo-list m-t small-list">
+                                      <ul class="todo-list m-t small-list">
+                                      @foreach($invitados as $invitado)
                                       <li>
-                                        <a href="#" class="check-link"><i class="fa fa-check-square"></i> </a>
-                                        <span class="m-l-xs todo-completed">Buy a milk</span>
+                                          <p> <i class="fa fa-circle text-navy"></i> {!!$invitado->name!!} {!!$invitado->apellidos!!} </p>
                                       </li>
-                                      <li>
-                                        <a href="#" class="check-link"><i class="fa fa-square-o"></i> </a>
-                                        <span class="m-l-xs">Send documents to Mike</span>
-                                        <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 mins</small>
-                                      </li>
+                                      @endforeach
                                     </ul>
                                   </div>
                                 </div>
                               </div>
+                              @endif
+                              @if(Auth::user()->tipo == 'Administrador')
+                              @foreach($relacionadores as $relacionador)
+                                <div class="col-lg-4">
+                                  <div class="ibox">
+                                      <div class="ibox-title">
+                                        @foreach($numeroinvitados as $numeroinvitadoss)
+                                          @if($relacionador->id == $numeroinvitadoss->id)
+                                          <span class="label label-primary pull-right">{!!$numeroinvitadoss->cantidad!!} Invitados</span>
+                                          @endif
+                                        @endforeach
+                                          <h5>Relacionador: {!!$relacionador->name!!} {!!$relacionador->apellidos!!}</h5>
+                                      </div>
+                                      <div class="ibox-content">
+                                        {!!Form::open(['route'=>'enviar_invitacion.store','method'=>'POST'])!!}
+                                          {!!Form::hidden('evento', $evento->id)!!}
+                                          {!!Form::hidden('evento_nombre', $evento->evento_nombre)!!}
+                                          {!!Form::hidden('evento_fecha', $evento->evento_fecha)!!}
+                                          {!!Form::hidden('evento_hora', $evento->evento_hora)!!}
+                                          <ul class="todo-list m-t small-list">
+                                          @foreach($invitadosrelacionador as $invitadosrelacionadores)
+                                            @if($relacionador->id == $invitadosrelacionadores->idRelacionador)
+                                              {!!Form::hidden('relacionador_nombre', $invitadosrelacionadores->relacionador)!!}
+                                              {!!Form::hidden('relacionador_apellido', $invitadosrelacionadores->relacionadorape)!!}
+
+                                            {!!Form::hidden('invitado_nombre'.$invitadosrelacionadores->id, $invitadosrelacionadores->invitado)!!}
+                                            {!!Form::hidden('invitado_apellido'.$invitadosrelacionadores->id, $invitadosrelacionadores->apellidos)!!}
+                                            {!!Form::hidden('invitado_email'.$invitadosrelacionadores->id, $invitadosrelacionadores->email)!!}
+
+                                          <li>
+                                            {!!Form::checkbox('key_'.$invitadosrelacionadores->id, $invitadosrelacionadores->id,['class'=>'check-link'])!!}
+                                            <span class="m-l-xs">{!!$invitadosrelacionadores->invitado!!} {!!$invitadosrelacionadores->apellidos!!}</span>
+                                          </li>
+                                          @endif
+                                          @endforeach
+                                        </ul>
+                                        <div class="text-center m-t-md">
+                                            {!!Form::submit('Enviar invitacion',['class'=>'btn btn btn-primary']) !!}
+                                        </div>
+                                        {!!Form::close()!!}
+                                      </div>
+                                  </div>
+                                </div>
+                              @endforeach
+                              @endif
                             </div>
                         </div>
                     </div>
