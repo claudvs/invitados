@@ -49,7 +49,7 @@ class EnviarInvitacionController extends Controller
           'evento' => $evento_nombre,
           'qrFile' => $qrFile
         ), function($message) use ($invitado_nombre, $toemail) {
-                  $message->to($toemail, $invitado_nombre)->cc('soporte@ticketeg.com.bo', 'TICKETEG')->subject('Gracias por comprar con Tigo Money!');
+                  $message->to($toemail, $invitado_nombre)->cc('soporte@ticketeg.com.bo', 'TICKETEG')->subject('Bienvenido a Culto, '. $invitado_nombre);
               });
 
       File::delete($qrFile);

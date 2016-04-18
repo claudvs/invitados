@@ -1,6 +1,6 @@
 /*
-SQLyog Community v12.06 (64 bit)
-MySQL - 5.1.47-community : Database - db_invitados
+SQLyog Community v12.09 (64 bit)
+MySQL - 5.1.72-community : Database - db_invitados
 *********************************************************************
 */
 
@@ -36,11 +36,7 @@ CREATE TABLE `eventos` (
 
 /*Data for the table `eventos` */
 
-LOCK TABLES `eventos` WRITE;
-
-insert  into `eventos`(`id`,`evento_nombre`,`evento_lugar`,`evento_fecha`,`evento_hora`,`evento_cupo`,`evento_observaciones`,`created_at`,`updated_at`,`deleted_at`) values (1,'Claudio','Cañoto','04/19/2016 6:02 AM','02:10','22222','afs','2016-04-18 10:02:27','2016-04-18 10:02:27',NULL);
-
-UNLOCK TABLES;
+insert  into `eventos`(`id`,`evento_nombre`,`evento_lugar`,`evento_fecha`,`evento_hora`,`evento_cupo`,`evento_observaciones`,`created_at`,`updated_at`,`deleted_at`) values (1,'Celinas','Cañoto','04/29/2016 5:22 PM','18:25','300','Urbanizaciones','2016-04-18 15:23:17','2016-04-18 15:23:17',NULL);
 
 /*Table structure for table `invitados_eventos` */
 
@@ -61,15 +57,11 @@ CREATE TABLE `invitados_eventos` (
   CONSTRAINT `invitados_eventos_relacionador_id_foreign` FOREIGN KEY (`relacionador_id`) REFERENCES `users` (`id`),
   CONSTRAINT `invitados_eventos_evento_id_foreign` FOREIGN KEY (`evento_id`) REFERENCES `eventos` (`id`),
   CONSTRAINT `invitados_eventos_invitado_id_foreign` FOREIGN KEY (`invitado_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `invitados_eventos` */
 
-LOCK TABLES `invitados_eventos` WRITE;
-
-insert  into `invitados_eventos`(`id`,`evento_id`,`invitado_id`,`relacionador_id`,`estado`,`created_at`,`updated_at`) values (2,1,3,5,'0','2016-04-18 10:54:47','2016-04-18 10:54:47');
-
-UNLOCK TABLES;
+insert  into `invitados_eventos`(`id`,`evento_id`,`invitado_id`,`relacionador_id`,`estado`,`created_at`,`updated_at`) values (8,1,9,3,'0','2016-04-18 20:27:03','2016-04-18 20:27:03');
 
 /*Table structure for table `migrations` */
 
@@ -82,11 +74,7 @@ CREATE TABLE `migrations` (
 
 /*Data for the table `migrations` */
 
-LOCK TABLES `migrations` WRITE;
-
 insert  into `migrations`(`migration`,`batch`) values ('2014_10_12_000000_create_users_table',1),('2014_10_12_100000_create_password_resets_table',1),('2016_04_10_190215_create_eventos_table',1),('2016_04_10_192216_create_relacion_evento_relacionadors_table',1),('2016_04_10_192239_create_relacion_evento_invitados_table',1),('2016_04_10_192315_create_relacion_relacionador_invitados_table',1),('2016_04_11_084026_add_deleted_to_eventos_table',1),('2016_04_11_185053_add_deleted_to_users_table',1),('2016_04_12_205959_create_invitados_eventos_table',1);
-
-UNLOCK TABLES;
 
 /*Table structure for table `password_resets` */
 
@@ -101,10 +89,6 @@ CREATE TABLE `password_resets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `password_resets` */
-
-LOCK TABLES `password_resets` WRITE;
-
-UNLOCK TABLES;
 
 /*Table structure for table `relacion_evento_invitados` */
 
@@ -125,10 +109,6 @@ CREATE TABLE `relacion_evento_invitados` (
 
 /*Data for the table `relacion_evento_invitados` */
 
-LOCK TABLES `relacion_evento_invitados` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `relacion_evento_relacionadors` */
 
 DROP TABLE IF EXISTS `relacion_evento_relacionadors`;
@@ -148,10 +128,6 @@ CREATE TABLE `relacion_evento_relacionadors` (
 
 /*Data for the table `relacion_evento_relacionadors` */
 
-LOCK TABLES `relacion_evento_relacionadors` WRITE;
-
-UNLOCK TABLES;
-
 /*Table structure for table `relacion_relacionador_invitados` */
 
 DROP TABLE IF EXISTS `relacion_relacionador_invitados`;
@@ -167,15 +143,11 @@ CREATE TABLE `relacion_relacionador_invitados` (
   KEY `relacion_relacionador_invitados_invitado_id_foreign` (`invitado_id`),
   CONSTRAINT `relacion_relacionador_invitados_invitado_id_foreign` FOREIGN KEY (`invitado_id`) REFERENCES `users` (`id`),
   CONSTRAINT `relacion_relacionador_invitados_relacionador_id_foreign` FOREIGN KEY (`relacionador_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `relacion_relacionador_invitados` */
 
-LOCK TABLES `relacion_relacionador_invitados` WRITE;
-
-insert  into `relacion_relacionador_invitados`(`id`,`relacionador_id`,`invitado_id`,`created_at`,`updated_at`) values (4,5,3,'2016-04-18 10:10:17','2016-04-18 10:10:17'),(5,5,3,'2016-04-18 10:54:47','2016-04-18 10:54:47');
-
-UNLOCK TABLES;
+insert  into `relacion_relacionador_invitados`(`id`,`relacionador_id`,`invitado_id`,`created_at`,`updated_at`) values (8,3,9,'2016-04-18 20:27:04','2016-04-18 20:27:04');
 
 /*Table structure for table `users` */
 
@@ -201,15 +173,11 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `users` */
 
-LOCK TABLES `users` WRITE;
-
-insert  into `users`(`id`,`name`,`apellidos`,`ci`,`nroCelular`,`fechanac`,`sexo`,`email`,`usuario`,`password`,`tipo`,`estado`,`codigo`,`facebook_id`,`remember_token`,`created_at`,`updated_at`,`deleted_at`) values (3,'Claud Saavedra','Vargas','','75666223','0000-00-00','Masculino','cvs_3000@hotmail.com','','','Invitado','1','','10154115712297878',NULL,'2016-04-18 09:08:30','2016-04-18 10:54:47',NULL),(4,'','','','','0000-00-00','Masculino','','iAlfa','$2y$10$loZf/f1y8YgjwXe1vDkh7.QPa36W0rITNusuj8fljMhYehjKxnThS','Administrador','1','','',NULL,'2016-04-18 09:26:34','2016-04-18 09:26:34',NULL),(5,'Claudio','Vargas Saavedra','3627592','75666223','0000-00-00','Masculino','klaudiocvs@gmail.com','iClaudio','$2y$10$GU048GI.wPo.aGWphhusJeZnrkH5kqD3BwHok/I3vG.v0GZrz7Mny','Relacionador','1','4212737','',NULL,'2016-04-18 09:27:17','2016-04-18 09:27:17',NULL);
-
-UNLOCK TABLES;
+insert  into `users`(`id`,`name`,`apellidos`,`ci`,`nroCelular`,`fechanac`,`sexo`,`email`,`usuario`,`password`,`tipo`,`estado`,`codigo`,`facebook_id`,`remember_token`,`created_at`,`updated_at`,`deleted_at`) values (2,'','','','','0000-00-00','Masculino','','iAlfa','$2y$10$tvtxjjqITLP039BOkVvLAe.gNu60Ib0w24gXMRK3z.KIbdfv70HL6','Administrador','1','0','',NULL,'2016-04-18 15:19:18','2016-04-18 15:19:22',NULL),(3,'Carolina','Ribero','36245678','75644552','0000-00-00','','caro@gmail.com','iCaro','$2y$10$0YClqVYbZTBjmPMxZEXpTegPlP6zDCCyG/N4E9zp/A/HoPEcai0FG','Relacionador','1','3560233','',NULL,'2016-04-18 15:24:26','2016-04-18 15:24:26',NULL),(9,'Claud Saavedra','Fernandez','','75666223','0000-00-00','Masculino','cvs_3000@hotmail.com','','','Invitado','1','0','10154115712297878',NULL,'2016-04-18 20:25:57','2016-04-18 20:27:04',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

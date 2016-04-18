@@ -145,7 +145,7 @@ class InvitadosController extends Controller
      if ($evento == null) {
        return view('invitados/formRegistro',compact('evento'));
      }
-      return "Ya te registraste";
+      return view('invitados/registrado');
     }
 
     public function facebook()
@@ -192,6 +192,7 @@ class InvitadosController extends Controller
          $invitado->sexo = $sexo;
          $invitado->tipo = 'Invitado';
          $invitado->estado ='1';
+         $invitado->codigo ='0';
          $invitado->save();
 
        return $invitado;
