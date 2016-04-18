@@ -107,4 +107,5 @@ class Invitados_EventoController extends Controller
     {
         //
     }
+
 }

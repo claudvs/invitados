@@ -32,6 +32,7 @@ class UserUpdateRequest extends Request
         'sexo' => 'required',
         'email' => 'required',
         'usuario' => 'required',
+        'codigo' => 'required',
       ];
     }
 }

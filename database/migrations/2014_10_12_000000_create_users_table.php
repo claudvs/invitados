@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->enum('tipo',['Administrador','Relacionador','Invitado']);
             $table->enum('estado',['0','1','2']);
+            $table->string('codigo');
+            $table->string('facebook_id');
             $table->rememberToken();
             $table->timestamps();
         });

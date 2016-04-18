@@ -9,8 +9,14 @@ use invitados\Http\Requests\InvitadoCreateRequest;
 use Auth;
 use Session;
 use Redirect;
+use invitados\invitados_eventos;
+use invitados\Evento;
 use invitados\User;
 use DB;
+use Socialite;
+
+
+
 use invitados\Relacion_relacionador_invitado;
 
 class InvitadosController extends Controller
@@ -54,17 +60,33 @@ class InvitadosController extends Controller
      */
     public function store(InvitadoCreateRequest $request)
     {
-        $relacionadorID = Auth::user()->id;
-        $invitado = User::create($request->all());
-          $invitado->tipo = 'Invitado';
-          $invitado->estado ='1';
-          $invitado->save();
-          $relacion = Relacion_relacionador_invitado::create(array(
-            'relacionador_id' => $relacionadorID,
-            'invitado_id' => $invitado->id
-          ));
-        Session::flash('message','El Invitado se a registrado correctamente');
-      return  Redirect::to('/invitado');
+       $relacionador = User::where('codigo','=',$request['codigo'])->first();
+       $user = User::find(Auth::user()->id);
+
+       if ($relacionador) {
+         $evento = Evento::all();
+         foreach($evento as $eventos) {
+           $aux = invitados_eventos::create(array(
+             'evento_id' => $eventos->id,
+             'relacionador_id' => $relacionador->id,
+             'invitado_id' => $user->id
+           ));
+         }
+          $user->apellidos = $request['apellidos'];
+          $user->nroCelular = $request['nroCelular'];
+          $user->fechanac = $request['fechanac'];
+          $user->save();
+           $relacion = Relacion_relacionador_invitado::create(array(
+             'relacionador_id' => $relacionador->id,
+             'invitado_id' => Auth::user()->id
+           ));
+           Session::flash('message','El Invitado se a registrado correctamente');
+       return  Redirect::to('/registro');
+       }
+
+       Session::flash('message','El Codigo No existe');
+        return Redirect('/registrate');
+
     }
 
     /**
@@ -75,7 +97,7 @@ class InvitadosController extends Controller
      */
     public function show($id)
     {
-      
+
     }
 
     /**
@@ -111,4 +133,69 @@ class InvitadosController extends Controller
     {
         //
     }
+
+    public function registro()
+    {
+      return view('invitados/welcome');
+    }
+
+    public function formularioRegistro()
+    {
+     $evento = invitados_eventos::where('invitado_id','=',Auth::user()->id)->first();
+     if ($evento == null) {
+       return view('invitados/formRegistro',compact('evento'));
+     }
+      return "Ya te registraste";
+    }
+
+    public function facebook()
+     {
+         return Socialite::driver('facebook')->redirect();
+     }
+
+     /**
+      * Obtain the user information from GitHub.
+      *
+      * @return Response
+      */
+     public function callback()
+     {
+         $user = Socialite::driver('facebook')->user();
+
+         $authUser = $this->findOrCreate($user);
+         Auth::login($authUser);
+
+         return Redirect('/registrate');
+     }
+
+     private function findOrCreate($facebookUser)
+     {
+       $authUser = User::where('facebook_id','=',$facebookUser->user['id'])->first();
+
+       if ($authUser) {
+         return $authUser;
+       }
+
+       return $this->createUser($facebookUser);
+     }
+
+     private function createUser($user)
+     {
+       $sexo = 'Femenino';
+       if ($user->user['gender'] == 'male') {
+         $sexo = 'Masculino';
+       }
+       $invitado = User::create();
+         $invitado->name = $user->name;
+         $invitado->email = $user->email;
+         $invitado->facebook_id = $user->user['id'];
+         $invitado->sexo = $sexo;
+         $invitado->tipo = 'Invitado';
+         $invitado->estado ='1';
+         $invitado->save();
+
+       return $invitado;
+     }
+
+
 }

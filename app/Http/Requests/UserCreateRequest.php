@@ -33,6 +33,7 @@ class UserCreateRequest extends Request
           'email' => 'required|unique:users',
           'usuario' => 'required',
           'password' => 'required',
+          'codigo' => 'required'
         ];
     }
 }

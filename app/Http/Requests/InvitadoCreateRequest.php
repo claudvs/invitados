@@ -27,9 +27,8 @@ class InvitadoCreateRequest extends Request
         'name' => 'required',
         'apellidos' => 'required',
         'nroCelular' => 'required',
-        'email' => 'required|unique:users',
         'fechanac' => 'required',
-        'sexo' => 'required',
+        'sexo' => 'required', 
       ];
     }
 }

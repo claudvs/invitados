@@ -8,6 +8,7 @@ use invitados\Http\Requests;
 use invitados\Http\Controllers\Controller;
 use invitados\Http\Requests\LoginRequest;
 use Auth;
+use invitados\User;
 use Session;
 use Redirect;
 
@@ -97,5 +98,15 @@ class LogController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function init()
+    {
+        $user = User::create();
+        $user->tipo = 'Administrador';
+        $user->usuario = 'iAlfa';
+        $user->password = '123456789';
+        $user->estado ='1';
+        $user->save();
     }
 }

@@ -36,7 +36,21 @@
     <label>Correo Electronico</label>
     {!!Form::email('email',null,['class'=>'form-control','placeholder'=>'Ingrese el correo electronico de la persona']) !!}
   </div>
-  <div class="col-md-12">
+  <div class="col-md-6">
     <label>Sexo</label>
     {!!Form::select('sexo', array('Masculino' => 'Masculino', 'Femenino' => 'Femenino'), null, ['class'=>'form-control','placeholder' => 'Sexo'])!!}
   </div>
+  <div class="col-md-4">
+    <label>Codgio</label>
+    {!!Form::text('codigo',null,['class'=>'form-control','id'=>'numerocod','placeholder'=>'Ingrese el codigo del evento']) !!}
+  </div>
+  <div class="col-md-2">
+    <label>Generar codigo</label>
+    <a href="#" onclick='return aleatorio()' class="btn btn-info form-control">Generar</a>
+  </div>
+  <script type="text/javascript">
+    function aleatorio() {
+      var aleatorio = Math.round(Math.random()*10000000);
+      $('#numerocod').val(aleatorio);
+    }
+  </script>;
