@@ -24,11 +24,8 @@ class InvitadoCreateRequest extends Request
     public function rules()
     {
       return [
-
-        'apellidos' => 'required',
         'nroCelular' => 'required',
-        'fechanac' => 'required',
-        
+        'fechanac' => 'required'
       ];
     }
 }

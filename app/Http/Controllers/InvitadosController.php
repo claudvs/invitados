@@ -187,7 +187,6 @@ class InvitadosController extends Controller
        }
        $invitado = User::create();
          $invitado->name = $user->name;
-         $invitado->email = $user->email;
          $invitado->facebook_id = $user->user['id'];
          $invitado->sexo = $sexo;
          $invitado->tipo = 'Invitado';

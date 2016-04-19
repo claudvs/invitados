@@ -89,7 +89,7 @@
                                   <div class="form-group">
                                     <div class="row">
                                       <div class="col-md-12">
-                                        <label>Nombre:</label>
+                                        <label>Nombre y Apellido</label>
 																				<div class="input-group">
 																					<div class="input-group-addon">	{{ HTML::image('img/cultologo.png', 'a picture',['width'=>'25px']) }}</div>
 																					{!!Form::text('name',Auth::user()->name,['class'=>'form-control', 'required']) !!}
@@ -117,13 +117,6 @@
                                   </div>
                                   <div class="form-group">
                                     <div class="row">
-                                      <div class="col-md-12">
-                                        <label>Apellido:</label>
-																				<div class="input-group">
-																				  <div class="input-group-addon">	{{ HTML::image('img/cultologo.png', 'a picture',['width'=>'25px']) }}</div>
-																					{!!Form::text('apellidos',Auth::user()->apellidos,['class'=>'form-control', 'required']) !!}
-																				</div>
-                                      </div>
                                       <div class="col-md-12">
                                         <label>Nro de celular</label>
 																				<div class="input-group">
