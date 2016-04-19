@@ -40,7 +40,7 @@
 
 
 <div class="wrapper wrapper-full-page">
-    <div class="full-page login-page" data-color="purple" data-image="#">
+    <div class="full-page login-page" data-color="red" data-image="#">
 
     <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
         <div class="content">
@@ -50,16 +50,16 @@
                         <form method="#" action="#">
 
                         <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
-                            <div class="card">
+                            <div class="">
 															@if(Session::has('message'))
 															<div class="alert alert-success alert-dismissible" role="alert">
 																<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 																{{Session::get('message')}}
 															</div>
 															@endif
-                                <div class="header text-center white">Bienvenido a <br>CULTO</div>
+                                <!--<div class="header text-center white">Bienvenido a <br>CULTO</div>-->
                                 <div class="content">
-
+																		<h2>"Tu mente se cree que eres un nombre, <br> un apellido o una imagen. <br> Sal de tu mente y conócete a ti mismo." <br> Tu <span>iniciacion</span> ha <span>comenzado</span>."</h2>
                                 </div>
                                 <div class="footer text-center">
 																	<a href="{!!URL::to('/facebook')!!}" class="btn btn-block btn-facebook">

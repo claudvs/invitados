@@ -54,16 +54,29 @@
 
 <div class="wrapper wrapper-full-page">
     <div class="full-page login-page" data-color="purple" data-image="#">
+			<div class="title">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-md-offset-3 col-sm-offset-2">
+							<div class="mensaje">
+								<h2>"Tu mente se cree que eres un nombre, <br> un apellido o una imagen. <br> Sal de tu mente y conócete a ti mismo." <br> Tu <span>iniciacion</span> ha <span>comenzado</span>."</h2>
+							</div>
+							<div class="logo">
+								{{ HTML::image('img/cultologo.png', 'a picture',['class'=>'img-responsive center-block']) }}
+							</div>
+						</div>
+					</div>
 
-    <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
+				</div>
+
+			</div>
+    <!--  you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
         <div class="content">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-5 col-sm-6 col-md-offset-4 col-sm-offset-2">
-
-
+                    <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-2">
                         <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
-                            <div class="card">
+                            <div class="">
                               @if(Session::has('message'))
                               <div class="alert alert-danger alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -71,18 +84,23 @@
                               </div>
                               @endif
                                 @include('alerts.request')
-                                <div class="header text-center white">Bienvenido a <br>{!!Auth::user()->name!!}</div>
                                 {!!Form::open(['route'=>'invitado.store','method'=>'POST'])!!}
                                 <div class="content">
                                   <div class="form-group">
                                     <div class="row">
-                                      <div class="col-md-6">
+                                      <div class="col-md-12">
                                         <label>Nombre:</label>
-                                        {!!Form::text('name',Auth::user()->name,['class'=>'form-control','placeholder'=>'Ingrese tu apellido']) !!}
+																				<div class="input-group">
+																					<div class="input-group-addon">	{{ HTML::image('img/cultologo.png', 'a picture',['width'=>'25px']) }}</div>
+																					{!!Form::text('name',Auth::user()->name,['class'=>'form-control', 'required']) !!}
+																				</div>
                                       </div>
-                                      <div class="col-md-6">
-                                        <label>Email</label>
-                                        {!!Form::text('email',Auth::user()->email,['class'=>'form-control','placeholder'=>'Ingrese el numero de celular']) !!}
+                                      <div class="col-md-12">
+																				<label>Email</label>
+																				<div class="input-group">
+																					<div class="input-group-addon">	{{ HTML::image('img/cultologo.png', 'a picture',['width'=>'25px']) }}</div>
+																					{!!Form::text('email',Auth::user()->email,['class'=>'form-control', 'required']) !!}
+																				</div>
                                       </div>
                                     </div>
                                   </div>
@@ -90,36 +108,48 @@
                                     <div class="row">
                                       <div class="col-md-12">
                                         <label>Sexo</label>
-                                        {!!Form::select('sexo', array('Masculino' => 'Masculino', 'Femenino' => 'Femenino'), Auth::user()->sexo, ['class'=>'form-control','placeholder' => 'Sexo'])!!}
+																				<div class="input-group">
+																					  <div class="input-group-addon">	{{ HTML::image('img/cultologo.png', 'a picture',['width'=>'25px']) }}</div>
+																						{!!Form::select('sexo', array('Masculino' => 'Masculino', 'Femenino' => 'Femenino'), Auth::user()->sexo, ['class'=>'form-control','placeholder' => 'Sexo'])!!}
+																				</div>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="form-group">
                                     <div class="row">
-                                      <div class="col-md-6">
+                                      <div class="col-md-12">
                                         <label>Apellido:</label>
-                                        {!!Form::text('apellidos',Auth::user()->apellidos,['class'=>'form-control','placeholder'=>'Ingrese tu apellido']) !!}
+																				<div class="input-group">
+																				  <div class="input-group-addon">	{{ HTML::image('img/cultologo.png', 'a picture',['width'=>'25px']) }}</div>
+																					{!!Form::text('apellidos',Auth::user()->apellidos,['class'=>'form-control', 'required']) !!}
+																				</div>
                                       </div>
-                                      <div class="col-md-6">
+                                      <div class="col-md-12">
                                         <label>Nro de celular</label>
-                                        {!!Form::text('nroCelular',Auth::user()->nroCelular,['class'=>'form-control','placeholder'=>'Ingrese el numero de celular']) !!}
+																				<div class="input-group">
+																				  <div class="input-group-addon">	{{ HTML::image('img/cultologo.png', 'a picture',['width'=>'25px']) }}</div>
+																					{!!Form::text('nroCelular',Auth::user()->nroCelular,['class'=>'form-control', 'required']) !!}
+																				</div>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="form-group">
                                     <div class="row">
-                                      <div class="col-md-6">
+                                      <div class="col-md-12">
                                         <label>Fecha del Nacimiento</label>
-                                        <div class='input-group date'>
-                                            {!!Form::text('fechanac',Auth::user()->fechanac,['class'=>'form-control','id'=>'dateinvitado','placeholder'=>'Fecha de nacimiento']) !!}
-                                            <span class="input-group-addon">
-                                              <i class="fa fa-calendar"></i>
-                                            </span>
-                                          </div>
+																				<div class="input-group">
+																				  <div class="input-group-addon">	{{ HTML::image('img/cultologo.png', 'a picture',['width'=>'25px']) }}</div>
+																					<div class='date'>
+																							{!!Form::text('fechanac',Auth::user()->fechanac,['class'=>'form-control','id'=>'dateinvitado', 'required']) !!}
+																						</div>
+																				</div>
                                       </div>
-                                      <div class="col-md-6">
+                                      <div class="col-md-12">
                                         <label>Codigo Relacionador</label>
-                                        {!!Form::text('codigo',null,['class'=>'form-control','placeholder'=>'Ingrese el codigo de relacionador']) !!}
+																				<div class="input-group">
+																				  <div class="input-group-addon">	{{ HTML::image('img/cultologo.png', 'a picture',['width'=>'25px']) }}</div>
+																					{!!Form::text('codigo',null,['class'=>'form-control', 'required']) !!}
+																				</div>
                                       </div>
                                     </div>
                                   </div>

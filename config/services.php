@@ -35,9 +35,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
     'facebook' => [
-        'client_id'     => '1004503009643498',
-        'client_secret' => '4b50a7e320a7baa8be00c54ebdad8dc6',
-        'redirect'      => 'http://boliche.ticketeg.com.bo/invitados/public/callback',
+          'client_id'     => '267476146918327',
+         'client_secret' => 'f60752783b23a2e299efbf0c341aa820',
+         'redirect'      => 'http://localhost:8080/invitados/public/callback'
     ],
 
 ];

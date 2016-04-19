@@ -1,3 +1,51 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(Lombardic.ttf);
+}
+@font-face {
+    font-family: Papyrus;
+    src: url(Papyrus.ttf);
+}
+div {
+    font-family: Papyrus!important;
+    color: #fff;
+    font-size: 30px;
+}
+h2  {
+  font-family: Papyrus!important;
+  color: #fff;
+  font-size: 19px!important;
+  text-align: center;
+}
+h2 span{
+  color: red;
+}
+label{
+  text-align: center!important;
+  display: block;
+  font-size: 20px;
+}
+.input-group{
+  border: 4px solid red!important;
+  border-radius: 6px!important;
+}
+.input-group-addon{
+  background: #000!important;
+  padding: 6px 7px!important;
+}
+.title{
+  z-index: 4;
+  position: relative;
+}
+.mensaje h2{
+  font-size: 25px!important;
+}
+.logo{
+  background: #000;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 /*      light colors         */
 @keyframes spin {
   from {
@@ -6163,7 +6211,7 @@ star {
 }
 
 .footer {
-  background-color: #FFFFFF;
+   
   line-height: 20px;
 }
 .footer nav > ul {
@@ -7172,7 +7220,7 @@ star {
 
 .full-page:after, .full-page:before {
   display: block;
-  content: "";
+  /*content: "";*/
   position: absolute;
   width: 100%;
   height: 100%;
@@ -7287,7 +7335,7 @@ star {
 
 .login-page > .content,
 .lock-page > .content {
-  padding-top: 22vh;
+  padding-top: 2vh;
 }
 
 .login-page .card {
@@ -7395,7 +7443,7 @@ star {
     padding-right: 10px;
   }
 
- 
+
   .navbar-nav > li.open > .dropdown-menu, .dropdown.open .dropdown-menu, .dropup.open .dropdown-menu, .bootstrap-table .open .dropdown-menu {
     opacity: 1;
     filter: alpha(opacity=100);
