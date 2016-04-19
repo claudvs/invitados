@@ -132,8 +132,8 @@
                                         <label>Fecha del Nacimiento</label>
 																				<div class="input-group">
 																				  <div class="input-group-addon">	{{ HTML::image('img/cultologo.png', 'a picture',['width'=>'25px']) }}</div>
-																					<div class='date'>
-																							{!!Form::text('fechanac',Auth::user()->fechanac,['class'=>'form-control','id'=>'dateinvitado', 'required']) !!}
+																					<div class=''>
+																							{!!Form::text('fechanac',null,['class'=>'form-control','id'=>'','title'=>'Ejemplo: 22/04/1998','placeholder'=>'Ejemplo: 22/04/1998','required']) !!}
 																						</div>
 																				</div>
                                       </div>
